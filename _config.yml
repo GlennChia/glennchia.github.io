@@ -1,0 +1,27 @@
+# Site settings
+title: Glenn Chia
+email: glennchia7@gmail.com
+description: >-
+  A catalog of my work including blogs, artifacts, and sample repositories.
+baseurl: ""
+url: "https://glennchia.github.io"
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+
+# Collections
+collections:
+  publications:
+    output: true
+    permalink: /:collection/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "publications"
+    values:
+      layout: "publication"

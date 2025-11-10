@@ -1,0 +1,95 @@
+---
+layout: default
+---
+
+<div class="publication-detail">
+  <nav class="breadcrumb">
+    <a href="/publications">← Back to Publications</a>
+  </nav>
+  
+  <article class="publication-content">
+    {{ content }}
+  </article>
+</div>
+
+<style>
+.publication-detail {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.breadcrumb {
+  margin-bottom: 2rem;
+}
+
+.breadcrumb a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.publication-content {
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.publication-content h1 {
+  color: var(--heading-color);
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.publication-content h2 {
+  color: var(--heading-color);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem 0;
+}
+
+.publication-content h3 {
+  color: var(--subheading-color);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1.5rem 0 1rem 0;
+}
+
+.publication-content p {
+  margin-bottom: 1rem;
+}
+
+.publication-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  border: 1px solid var(--border-color);
+}
+
+.publication-content pre {
+  background: var(--border-color);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.publication-content code {
+  background: var(--border-color);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.publication-content ul, .publication-content ol {
+  margin: 1rem 0 1rem 2rem;
+}
+
+.publication-content li {
+  margin-bottom: 0.5rem;
+}
+</style>

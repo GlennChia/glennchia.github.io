@@ -1,0 +1,67 @@
+---
+layout: default
+title: Publications
+---
+
+{% include publications-styles.html %}
+
+<div class="publications-container">
+  <aside class="filters-sidebar">
+    <div class="search-section">
+      <input type="text" id="search-input" placeholder="Search..." class="search-input">
+      <div class="results-count">
+        <span id="results-count">0</span> publications
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <h3>Company</h3>
+      <div class="filter-group">
+        <label><input type="checkbox" value="HashiCorp" class="filter-checkbox" data-filter="job"> HashiCorp</label>
+        <label><input type="checkbox" value="AWS" class="filter-checkbox" data-filter="job"> AWS</label>
+        <label><input type="checkbox" value="Microsoft" class="filter-checkbox" data-filter="job"> Microsoft</label>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <h3>Content Type</h3>
+      <div class="filter-group">
+        <label><input type="checkbox" value="blog" class="filter-checkbox" data-filter="content_type"> Blog</label>
+        <label><input type="checkbox" value="video" class="filter-checkbox" data-filter="content_type"> Video</label>
+        <label><input type="checkbox" value="pull-request" class="filter-checkbox" data-filter="content_type"> Pull Request</label>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <h3>Domain</h3>
+      <div class="filter-group">
+        <label><input type="checkbox" value="Terraform" class="filter-checkbox" data-filter="domain"> Terraform</label>
+        <label><input type="checkbox" value="Vault" class="filter-checkbox" data-filter="domain"> Vault</label>
+        <label><input type="checkbox" value="Kubernetes" class="filter-checkbox" data-filter="domain"> Kubernetes</label>
+        <label><input type="checkbox" value="Networking" class="filter-checkbox" data-filter="domain"> Networking</label>
+      </div>
+    </div>
+
+    <button id="clear-filters" class="clear-filters">Clear All</button>
+  </aside>
+
+  <main class="publications-main">
+    <div class="publications-grid" id="publications-grid">
+      <!-- Publications will be loaded here -->
+    </div>
+  </main>
+</div>
+
+<!-- Modal -->
+<div id="publication-modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2 id="modal-title"></h2>
+    <div id="modal-date"></div>
+    <div id="modal-diagram"></div>
+    <p id="modal-description"></p>
+    <div id="modal-links"></div>
+  </div>
+</div>
+
+{% include publications-script.html %}

@@ -1,0 +1,189 @@
+<script>
+const MAX_VISIBLE_META_TAGS = 3;
+
+const publications = [
+  {
+    title: "Scaling Terraform agents using the Terraform Operator on Amazon EKS Auto Mode",
+    description: "Demo with provided Terraform code and screenshots that show how Terraform agents autoscale using the Terraform Operator on EKS Auto Mode",
+    detailed_description: "HashiCorp Cloud Platform (HCP) Terraform provides managed infrastructure automation with multiple execution modes, including HCP Terraform Agents that are self-hosted execution environments ideal for managing resources in private networks while maintaining HCP Terraform's collaborative features. As organizations scale, manually managing these agents becomes complex, with platform teams struggling to balance sufficient capacity for peak workloads against resource waste during quiet periods.<br><br>The solution lies in combining two complementary autoscaling technologies: the HCP Terraform Operator for Kubernetes automatically scales the number of agent pods based on pending Terraform workspace workloads, ensuring sufficient capacity during high demand periods while conserving resources during low utilization without manual intervention. Meanwhile, Amazon EKS Auto Mode that comes with Karpenter handles the underlying infrastructure layer by intelligently scaling cluster nodes based on pod scheduling needs. When Terraform runs spike and the operator creates new agent pods, Karpenter observes these unschedulable pods and launches new nodes to accommodate them. Conversely, when workspace activity decreases and the operator scales down agent pods, Karpenter consolidates workloads and terminates unused nodes. This two-tier autoscaling approach creates an intelligent, self-adjusting solution where the operator focuses on application-level scaling driven by actual Terraform workspace demand, while EKS Auto Mode focuses on infrastructure-level scaling, together optimizing both performance and cost without requiring manual capacity management.<br><br>To help you experience this autoscaling solution firsthand, the accompanying GitHub repository provides complete sample code that provisions an EKS Auto Mode cluster, deploys the HCP Terraform Operator using a Helm chart on system nodes, and configures agent pools to run on general purpose nodes. The repository also includes code to create test workspaces that generate varying workload patterns, allowing you to observe how the operator dynamically scales agent pods in response to workspace demand while Karpenter simultaneously adjusts the underlying node infrastructure, demonstrating the coordination between application-level and infrastructure-level autoscaling in action.",
+    job: "HashiCorp",
+    content_type: "blog",
+    tags: ["terraform", "operator", "agents", "kubernetes", "eks auto mode", "aws"],
+    link: "https://medium.com/hashicorp-engineering/scaling-terraform-agents-on-amazon-eks-auto-mode-for-efficient-infrastructure-management-1d64b5cb74fc",
+    code_link: "https://github.com/GlennChia/terraform-operator-agent-eks-auto-mode",
+    folder: "hashicorp-terraform-agent-operator-eks-auto-mode",
+    date: "2025-09-15"
+  },
+  {
+    title: "Cross-region connections from consumers to Vault using AWS PrivateLink",
+    description: "Code and screenshots that show how to establish secure cross-region connections to HCP Vault Dedicated using AWS PrivateLink",
+    detailed_description: "AWS PrivateLink provides a secure way to access services privately without exposing traffic to the public internet. HCP Vault now supports AWS PrivateLink connectivity, allowing consumers to securely connect to Vault clusters in different AWS regions while keeping all traffic within the AWS network backbone. This feature requires a HCP Vault Dedicated Essentials or Standard tier cluster.<br><br>In this post, we'll explore how to establish cross-region connections to HCP Vault clusters using AWS PrivateLink, verify the deployed resources, and demonstrate basic Vault operations through the secure connection.",
+    job: "HashiCorp",
+    content_type: "blog",
+    tags: ["vault", "hcp", "privatelink", "networking", "inbound"],
+    link: "https://www.hashicorp.com/en/resources/cross-region-connections-from-consumers-to-vault-using-aws-privatelink",
+    code_link: "https://github.com/GlennChia/hcp-vault-cross-region-privatelink",
+    folder: "hashicorp-vault-cross-region-private-link",
+    date: "2025-10-14"
+  },
+  {
+    title: "Patterns for connecting Vault to Amazon RDS using Amazon VPC Lattice",
+    description: "Architecture diagrams documenting the various ways of using Amazon VPC Lattice to achieve private connectivity from Vault to Amazon RDS without connecting provider VPCs using VPC peering or Transit Gateway",
+    detailed_description: "Amazon VPC Lattice allows private connectivity only to resources that you specify instead of the entire VPC. VPC Lattice is a fully managed application networking service that helps you simplify network connectivity, security, and monitoring for service-to-service communication needs. It also has broad support for the most common types of services and protocols, such as HTTP and HTTPS, gRPC, TLS, and TCP. In this blog, we will explore various ways we can leverage VPC Lattice features to connect Vault self-managed and HCP Vault Dedicated to RDS while ensuring the VPC hosting RDS, referred to as the Provider VPC, remains isolated from all other VPCs. This means that the provider VPCs will not be connected to other VPCs via VPC peering or Transit Gateway.",
+    job: "HashiCorp",
+    content_type: "blog",
+    tags: ["vault", "networking", "lattice", "outbound"],
+    link: "https://www.hashicorp.com/en/blog/patterns-for-connecting-vault-to-amazon-rds-using-amazon-vpc-lattice",
+    folder: "hashicorp-vault-outbound-lattice-patterns",
+    date: "2025-06-30"
+  }
+];
+
+function renderPublications(filteredPublications) {
+  const grid = document.getElementById('publications-grid');
+  const count = document.getElementById('results-count');
+
+  count.textContent = filteredPublications.length;
+
+  grid.innerHTML = filteredPublications.map(pub => `
+    <div class="publication-card" data-job="${pub.job}" data-content-type="${pub.content_type}" onclick="showModal(${JSON.stringify(pub).replace(/"/g, '&quot;')})" style="cursor: pointer;">
+      <h3 class="card-title">${pub.title}</h3>
+      ${pub.folder ? `<div class="card-diagram"><img src="/assets/publications/${pub.folder}/architecture.png" alt="Architecture diagram" onerror="this.style.display='none'"></div>` : ''}
+      <p class="card-description">${pub.description}</p>
+      <div class="card-footer">
+        <div class="card-tags">
+          <span class="tag company-tag">${pub.job}</span>
+          <span class="tag type-tag">${pub.content_type}</span>
+          ${pub.tags.slice(0, MAX_VISIBLE_META_TAGS).map(tag => `<span class="tag meta-tag">${tag}</span>`).join('')}
+          ${pub.tags.length > MAX_VISIBLE_META_TAGS ? `<span class="tag-overflow" onmouseover="showTagTooltip(event, ${JSON.stringify(pub.tags.slice(MAX_VISIBLE_META_TAGS)).replace(/"/g, '&quot;')})" onmouseout="hideTagTooltip()">+${pub.tags.length - MAX_VISIBLE_META_TAGS}</span>` : ''}
+        </div>
+        <button class="view-button" onclick="event.stopPropagation(); showModal(${JSON.stringify(pub).replace(/"/g, '&quot;')})">View</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterPublications() {
+  const searchTerm = document.getElementById('search-input').value.toLowerCase();
+  const activeFilters = {
+    job: Array.from(document.querySelectorAll('.filter-checkbox[data-filter="job"]:checked')).map(cb => cb.value),
+    content_type: Array.from(document.querySelectorAll('.filter-checkbox[data-filter="content_type"]:checked')).map(cb => cb.value),
+    domain: Array.from(document.querySelectorAll('.filter-checkbox[data-filter="domain"]:checked')).map(cb => cb.value)
+  };
+
+  const filtered = publications.filter(pub => {
+    const matchesSearch = !searchTerm ||
+      pub.title.toLowerCase().includes(searchTerm) ||
+      pub.description.toLowerCase().includes(searchTerm) ||
+      pub.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+
+    const matchesJob = activeFilters.job.length === 0 || activeFilters.job.includes(pub.job);
+    const matchesType = activeFilters.content_type.length === 0 || activeFilters.content_type.includes(pub.content_type);
+    const matchesDomain = activeFilters.domain.length === 0 || activeFilters.domain.some(domain =>
+      pub.tags.some(tag => tag.toLowerCase().includes(domain.toLowerCase()))
+    );
+
+    return matchesSearch && matchesJob && matchesType && matchesDomain;
+  });
+
+  renderPublications(filtered);
+}
+
+// Initial render
+renderPublications(publications);
+
+function showTagTooltip(event, tags) {
+  const tooltip = document.createElement('div');
+  tooltip.className = 'tag-tooltip';
+  tooltip.innerHTML = tags.map(tag => `<span class="tag meta-tag">${tag}</span>`).join('');
+
+  event.target.appendChild(tooltip);
+}
+
+function hideTagTooltip() {
+  document.querySelectorAll('.tag-tooltip').forEach(tooltip => tooltip.remove());
+}
+
+function showModal(pub) {
+  const modal = document.getElementById('publication-modal');
+  const modalTitle = document.getElementById('modal-title');
+  const modalDate = document.getElementById('modal-date');
+  const modalDiagram = document.getElementById('modal-diagram');
+  const modalDescription = document.getElementById('modal-description');
+  const modalLinks = document.getElementById('modal-links');
+
+  modalTitle.textContent = pub.title;
+  modalDate.textContent = new Date(pub.date).toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+
+  // Architecture diagram
+  if (pub.folder) {
+    modalDiagram.innerHTML = `<img src="/assets/publications/${pub.folder}/architecture.png" alt="Architecture diagram" class="modal-diagram-img" onerror="this.style.display='none'">`;
+  } else {
+    modalDiagram.innerHTML = '';
+  }
+
+  modalDescription.innerHTML = pub.detailed_description.replace(/\n/g, '<br>');
+
+  // Links
+  let linksHTML = '<div class="modal-links-container">';
+
+  if (pub.link) {
+    linksHTML += `<a href="${pub.link}" target="_blank" class="modal-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"/>
+      </svg>
+      View Publication
+    </a>`;
+  }
+
+  if (pub.code_link) {
+    linksHTML += `<a href="${pub.code_link}" target="_blank" class="modal-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"/>
+      </svg>
+      GitHub
+    </a>`;
+  }
+
+  if (pub.video_link) {
+    linksHTML += `<a href="${pub.video_link}" target="_blank" class="modal-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8,5.14V19.14L19,12.14L8,5.14Z"/>
+      </svg>
+      Video
+    </a>`;
+  }
+
+  linksHTML += '</div>';
+  modalLinks.innerHTML = linksHTML;
+
+  modal.style.display = 'block';
+}
+
+function closeModal() {
+  document.getElementById('publication-modal').style.display = 'none';
+}
+
+document.getElementById('search-input').addEventListener('input', filterPublications);
+document.querySelectorAll('.filter-checkbox').forEach(cb => {
+  cb.addEventListener('change', filterPublications);
+});
+
+document.getElementById('clear-filters').addEventListener('click', () => {
+  document.getElementById('search-input').value = '';
+  document.querySelectorAll('.filter-checkbox').forEach(cb => cb.checked = false);
+  filterPublications();
+});
+
+// Modal event listeners
+window.onclick = function(event) {
+  const modal = document.getElementById('publication-modal');
+  if (event.target === modal) {
+    closeModal();
+  }
+}
+</script>
