@@ -29,12 +29,34 @@ const publications = [
   {
     title: "Patterns for connecting Vault to Amazon RDS using Amazon VPC Lattice",
     description: "Architecture diagrams documenting the various ways of using Amazon VPC Lattice to achieve private connectivity from Vault to Amazon RDS without connecting provider VPCs using VPC peering or Transit Gateway",
-    detailed_description: "Amazon VPC Lattice allows private connectivity only to resources that you specify instead of the entire VPC. VPC Lattice is a fully managed application networking service that helps you simplify network connectivity, security, and monitoring for service-to-service communication needs. It also has broad support for the most common types of services and protocols, such as HTTP and HTTPS, gRPC, TLS, and TCP. In this blog, we will explore various ways we can leverage VPC Lattice features to connect Vault self-managed and HCP Vault Dedicated to RDS while ensuring the VPC hosting RDS, referred to as the Provider VPC, remains isolated from all other VPCs. This means that the provider VPCs will not be connected to other VPCs via VPC peering or Transit Gateway.",
+    detailed_description: "This is part 1 of a three-part series that highlights how Amazon VPC Lattice can help you achieve private connectivity from Vault self-managed (refers to Vault Enterprise or Vault Community Edition) or HCP Vault Dedicated to resources like Amazon RDS without direct connections to the RDS VPC via VPC peering or AWS Transit Gateway.<br><br>Amazon VPC Lattice allows private connectivity only to resources that you specify instead of the entire VPC. VPC Lattice is a fully managed application networking service that helps you simplify network connectivity, security, and monitoring for service-to-service communication needs. It also has broad support for the most common types of services and protocols, such as HTTP and HTTPS, gRPC, TLS, and TCP. In this blog, we will explore various ways we can leverage VPC Lattice features to connect Vault self-managed and HCP Vault Dedicated to RDS while ensuring the VPC hosting RDS, referred to as the Provider VPC, remains isolated from all other VPCs. This means that the provider VPCs will not be connected to other VPCs via VPC peering or Transit Gateway.",
     job: "HashiCorp",
     content_type: "blog",
     tags: ["vault", "network", "lattice", "outbound"],
     link: "https://www.hashicorp.com/en/blog/patterns-for-connecting-vault-to-amazon-rds-using-amazon-vpc-lattice",
     folder: "hashicorp-vault-outbound-lattice-patterns",
+    date: "2025-06-30"
+  },
+  {
+    title: "Connecting Vault to Amazon RDS using Amazon VPC Lattice",
+    description: "Architecture diagram documenting the Lattice Service Network Endpoint pattern with Vault self-managed. Includes screenshots showing how it was tested",
+    detailed_description: "Part two of a three-part series showing how VPC Lattice can help achieve private connectivity from Vault self-managed (refers to Vault Enterprise or Vault Community Edition) to resources like Amazon RDS without direct connections to the RDS VPC via VPC Peering or Transit Gateway. This guide demonstrates implementing the database secrets engine use case, featuring screenshots of the required AWS resources and validation tests for dynamic secret creation.",
+    job: "HashiCorp",
+    content_type: "blog",
+    tags: ["vault", "self-manage", "network", "lattice", "outbound", "database secrets engine"],
+    link: "https://www.hashicorp.com/en/blog/connecting-vault-to-amazon-rds-using-amazon-vpc-lattice",
+    folder: "hashicorp-vault-ent-outbound-lattice-patterns",
+    date: "2025-06-30"
+  },
+  {
+    title: "Connecting HCP Vault Dedicated to Amazon RDS privately using Amazon VPC Lattice",
+    description: "Architecture diagram documenting the Lattice Service Network Endpoint pattern with HCP Vault Dedicated. Includes screenshots showing how it was tested",
+    detailed_description: "Part three of a three-part series showing how VPC Lattice can help achieve private connectivity from HCP Vault Dedicated to resources like Amazon RDS without direct connections to the RDS VPC via VPC peering or Transit Gateway. This guide demonstrates implementing the database secrets engine use case, featuring screenshots of the required AWS resources and validation tests for dynamic secret creation.",
+    job: "HashiCorp",
+    content_type: "blog",
+    tags: ["vault", "hcp", "network", "lattice", "outbound", "database secrets engine"],
+    link: "https://www.hashicorp.com/en/blog/connecting-hcp-vault-dedicated-to-amazon-rds-privately-using-amazon-vpc-lattice",
+    folder: "hashicorp-vault-hcp-outbound-lattice-patterns",
     date: "2025-06-30"
   },
   {
@@ -45,9 +67,90 @@ const publications = [
     content_type: "blog",
     tags: ["terraform", "sentinel", "registry", "module", "policy as code"],
     link: "https://www.hashicorp.com/en/blog/enforce-private-module-registry-usage-in-terraform-with-sentinel",
-    folder: "hashicorp-terraform-sentinel-enforce-pmr",
+    folder: "terraform",
     date: "2025-07-29"
-  }
+  },
+  {
+    title: "HashiTalks: Terraform Module Lifecycle with Deprecation, Explorer, Change Requests, and Notifications",
+    description: "Code provided to bootstrap demo with the video providing a step by step walkthrough on features like module deprecation, revocation, explorer views, change request creation, and notifications",
+    detailed_description: "This video goes through the Terraform module lifecycle and covers the following<br><br>1. Module semantic versioning and publishing workflow<br>2. Module lifecycle with deprecation, revocation, and the resulting workspace consumption behavior<br>3. Setting up Terraform Teams and notifications<br>4. Using the explorer to filter to non-latest module versions<br>5. Creating change requests and receiving email notifications",
+    job: "HashiCorp",
+    content_type: "video",
+    tags: ["terraform", "module", "lifecycle", "deprecate", "revoke", "explorer", "change request", "notification"],
+    link: "https://www.youtube.com/live/PtUx4jLG954?si=kGJYmDEDQdzkthQI&t=3337",
+    code_link: "https://github.com/GlennChia/hashitalks-terraform-module-lifecycle/tree/main/bootstrap",
+    folder: "terraform",
+    popup_folder: "hashicorp-terraform-module-lifecycle",
+    date: "2025-11-30"
+  },
+  {
+    title: "Integrate HCP Packer with Red Hat Ansible Automation Platform",
+    description: "Architecture diagrams showing how to integrate Packer with Ansible and Ansible Automation Platform with sample code snippets provided.",
+    detailed_description: "The objective of this validated pattern is to assist you in deploying a comprehensive immutable image building pipeline that combines the power of HashiCorp Packer for image creation with Ansible for configuration management. Has a section on documenting the benefits of using Ansible Automation Platform (AAP) over using the basic Ansible provisioner alone.",
+    job: "HashiCorp",
+    content_type: "blog",
+    tags: ["packer", "aap", "ansible", "golden image", "vault", "ssh secrets engine"],
+    link: "https://developer.hashicorp.com/validated-patterns/packer/integrate-hcp-packer-with-ansible-automation-platform",
+    folder: "hashicorp-redhat",
+    popup_folder: "hashicorp-packer-redhat-aap",
+    date: "2025-09-12"
+  },
+  {
+    title: "Amazon Q Developer and HashiCorp Terraform MCP server",
+    description: "Step by step guide on using the Terraform MCP server with Q Developer. Demo uses the Q developer to generate code and identify deprecated arguments based on a provider version",
+    detailed_description: "Step by step guide on using the Terraform MCP server with Q Developer. Demo uses the Q developer to generate code and identify deprecated arguments based on a provider version.",
+    job: "HashiCorp",
+    content_type: "blog",
+    tags: ["terraform", "genai", "mcp", "q developer"],
+    link: "https://www.hashicorp.com/en/resources/enhance-infrastructure-development-amazon-q-developer-hashicorp-terraform-mcp-server",
+    folder: "hashicorp-terraform-mcp-q-developer",
+    date: "2025-08-28"
+  },
+  {
+    title: "AWS and AWSCC Terraform providers: Better together",
+    description: "Sample code, step by step guide showing how to use both providers together and how to migrate from one provider to the other with import and removed blocks",
+    detailed_description: "Terraform has two AWS providers: AWS and AWSCC, one handwritten, the other automatically generated. This post covers the reasoning behind these approaches, how each provider interacts with AWS APIs, how they complement rather than compete with each other, and how to migrate resources from one provider to the other, without recreating them.",
+    job: "HashiCorp",
+    content_type: "blog",
+    tags: ["terraform", "provider", "awscc", "aws", "import", "removed"],
+    link: "https://www.hashicorp.com/en/blog/aws-and-awscc-terraform-providers-better-together",
+    folder: "terraform-aws",
+    date: "2025-04-24"
+  },
+  {
+    title: "terraform-provider-vault: Fix eventual consistency for <i>vault_aws_auth_backend_role</i>",
+    description: "Pull request that supports eventual consistency for the <i>vault_aws_auth_backend_role</i> resource in the terraform-provider-vault repository",
+    detailed_description: "The pull request linked shows how to add support for eventual consistency to resources in the Terraform Vault provider. This can be a template for other resources that might require eventual consistency. In this example, after an IAM principal is created, it takes time for the permissions to propagate leading to errors when creating the <i>vault_aws_auth_backend_role</i> immediately after the IAM principal is created. Hence, if there are 400 errors, retry within an acceptable period.",
+    job: "HashiCorp",
+    content_type: "pr",
+    tags: ["terraform", "provider", "dev", "vault"],
+    link: "https://github.com/hashicorp/terraform-provider-vault/pull/2440",
+    folder: "terraform",
+    date: "2025-03-25"
+  },
+  {
+    title: "HashiTalks: Migrate Terraform state between the AWS and AWSCC providers",
+    description: "Video walkthrough of how to use the providers together, migrating state between providers for resources, migrating state between providers for modules, handling edge cases, and converting code between the providers with GenAI",
+    detailed_description: "Video walkthrough with screenshots of how to use the providers together, migrating state between providers for resources, migrating state between providers for modules, handling edge cases, and converting code between the providers with GenAI.",
+    job: "HashiCorp",
+    content_type: "video",
+    tags: ["terraform", "provider", "awscc", "aws", "import", "removed"],
+    link: "https://www.youtube.com/watch?v=LdAglxXbFH8",
+    folder: "terraform-aws",
+    date: "2024-09-13"
+  },
+  {
+    title: "HashiTalks: Testing for backward compatibility when developing Terraform AWS Provider resources",
+    description: "Video walkthrough of making code contributions to the open-source terraform-provider-aws repository. Talk focuses on coding for backward compatibility and writing tests to validate the developed code",
+    detailed_description: "Video walkthrough of making code contributions to the open-source terraform-provider-aws repository. Talk focuses on coding for backward compatibility and writing tests to validate the developed code.",
+    job: "HashiCorp",
+    content_type: "video",
+    tags: ["terraform", "provider", "dev", "aws"],
+    link: "https://www.youtube.com/watch?v=OQ3xpNUJnks",
+    code_link: "https://github.com/hashicorp/terraform-provider-aws/pull/31035",
+    folder: "terraform-aws",
+    date: "2023-08-11"
+  },
 ];
 
 function renderPublications(filteredPublications) {
