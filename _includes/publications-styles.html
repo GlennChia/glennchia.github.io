@@ -1,6 +1,6 @@
 <style>
 .page-content {
-  max-width: 95vw !important;
+  max-width: none !important;
   width: 100% !important;
   padding: 2rem 2vw !important;
 }
@@ -48,6 +48,98 @@
   font-size: 0.75rem;
   color: var(--subheading-color);
   margin-top: 0.5rem;
+}
+
+.view-toggle-section {
+  margin-bottom: 2rem;
+}
+
+.view-toggle {
+  display: flex;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.view-btn {
+  flex: 1;
+  padding: 0.5rem;
+  background: var(--bg-color);
+  color: var(--text-color);
+  border: none;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.view-btn.active {
+  background: var(--link-color);
+  color: white;
+}
+
+.view-btn:hover:not(.active) {
+  background: var(--border-color);
+}
+
+.publications-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.publications-table th {
+  background: var(--border-color);
+  color: var(--heading-color);
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.publications-table td {
+  padding: 0.75rem;
+  border-top: 1px solid var(--border-color);
+  vertical-align: top;
+}
+
+.publications-table td:nth-child(2),
+.publications-table td:nth-child(3) {
+  white-space: nowrap;
+}
+
+.publications-table tr {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.publications-table tr:hover {
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.table-title {
+  font-weight: 600;
+  color: var(--heading-color);
+  margin-bottom: 0.25rem;
+}
+
+.publications-table .tag {
+  vertical-align: top;
+  display: inline-block;
+}
+
+.table-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.table-tags .tag {
+  font-size: 0.6rem;
+  padding: 0.1rem 0.3rem;
 }
 
 .filter-section {
@@ -100,6 +192,7 @@
 .publications-main {
   flex: 1;
   min-width: 0;
+  width: 100%;
 }
 
 .publications-grid {
@@ -107,6 +200,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
   min-width: 0;
+  width: 100%;
 }
 
 .publication-card {

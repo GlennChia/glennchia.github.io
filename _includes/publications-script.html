@@ -153,12 +153,25 @@ const publications = [
   },
 ];
 
+let currentView = 'card';
+
 function renderPublications(filteredPublications) {
   const grid = document.getElementById('publications-grid');
   const count = document.getElementById('results-count');
 
   count.textContent = filteredPublications.length;
 
+  if (currentView === 'card') {
+    renderCardView(filteredPublications, grid);
+  } else {
+    renderTableView(filteredPublications, grid);
+  }
+}
+
+function renderCardView(filteredPublications, grid) {
+  // Reset to grid display for cards
+  grid.style.display = 'grid';
+  
   grid.innerHTML = filteredPublications.map(pub => `
     <div class="publication-card" data-job="${pub.job}" data-content-type="${pub.content_type}" onclick="showModal(${JSON.stringify(pub).replace(/"/g, '&quot;')})" style="cursor: pointer;">
       <h3 class="card-title">${pub.title}</h3>
@@ -179,6 +192,58 @@ function renderPublications(filteredPublications) {
   setTimeout(() => {
     document.querySelectorAll('.card-tags').forEach(handleTagOverflow);
   }, 100);
+}
+
+function renderTableView(filteredPublications, grid) {
+  const getNonDomainTags = (tags) => tags.filter(tag => 
+    !['terraform', 'vault', 'kubernetes', 'network', 'policy', 'module'].some(domain => 
+      tag.toLowerCase().includes(domain.toLowerCase())
+    )
+  );
+
+  const getDomainTags = (tags) => tags.filter(tag => 
+    ['terraform', 'vault', 'kubernetes', 'network', 'policy', 'module'].some(domain => 
+      tag.toLowerCase().includes(domain.toLowerCase())
+    )
+  );
+
+  // Override grid display for table
+  grid.style.display = 'block';
+  
+  grid.innerHTML = `
+    <table class="publications-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Company</th>
+          <th>Content Type</th>
+          <th>Domain</th>
+          <th>Tags</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${filteredPublications.map(pub => `
+          <tr onclick="showModal(${JSON.stringify(pub).replace(/"/g, '&quot;')})">
+            <td>
+              <div class="table-title">${pub.title}</div>
+            </td>
+            <td><span class="tag company-tag">${pub.job}</span></td>
+            <td><span class="tag type-tag">${pub.content_type}</span></td>
+            <td>
+              <div class="table-tags">
+                ${getDomainTags(pub.tags).map(tag => `<span class="tag meta-tag">${tag}</span>`).join('')}
+              </div>
+            </td>
+            <td>
+              <div class="table-tags">
+                ${getNonDomainTags(pub.tags).map(tag => `<span class="tag meta-tag">${tag}</span>`).join('')}
+              </div>
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
 }
 
 function handleTagOverflow(tagsContainer) {
@@ -374,6 +439,21 @@ document.querySelectorAll('.filter-checkbox').forEach(cb => {
 document.getElementById('clear-filters').addEventListener('click', () => {
   document.getElementById('search-input').value = '';
   document.querySelectorAll('.filter-checkbox').forEach(cb => cb.checked = false);
+  filterPublications();
+});
+
+// View toggle event listeners
+document.getElementById('card-view').addEventListener('click', () => {
+  currentView = 'card';
+  document.getElementById('card-view').classList.add('active');
+  document.getElementById('table-view').classList.remove('active');
+  filterPublications();
+});
+
+document.getElementById('table-view').addEventListener('click', () => {
+  currentView = 'table';
+  document.getElementById('table-view').classList.add('active');
+  document.getElementById('card-view').classList.remove('active');
   filterPublications();
 });
 
