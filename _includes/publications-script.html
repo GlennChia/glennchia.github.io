@@ -236,6 +236,16 @@ function handleTagOverflow(tagsContainer) {
       overflowSpan.onmouseover = (e) => showTagTooltip(e, hiddenTags);
       overflowSpan.onmouseout = hideTagTooltip;
       
+      // Add click handler for mobile
+      overflowSpan.onclick = (e) => {
+        e.stopPropagation();
+        if (window.innerWidth <= 768) {
+          const card = tagsContainer.closest('.publication-card');
+          const pubData = JSON.parse(card.getAttribute('onclick').match(/showModal\((.*?)\)/)[1].replace(/&quot;/g, '"'));
+          showModal(pubData);
+        }
+      };
+      
       tagsContainer.appendChild(overflowSpan);
     }
   }
