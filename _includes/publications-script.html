@@ -131,8 +131,9 @@ function showModal(pub) {
   });
 
   // Architecture diagram
-  if (pub.folder) {
-    modalDiagram.innerHTML = `<img src="/assets/publications/${pub.folder}/architecture.png" alt="Architecture diagram" class="modal-diagram-img" onerror="this.style.display='none'">`;
+  if (pub.popup_folder || pub.folder) {
+    const imagePath = pub.popup_folder || pub.folder;
+    modalDiagram.innerHTML = `<img src="/assets/publications/${imagePath}/architecture.png" alt="Architecture diagram" class="modal-diagram-img" onerror="this.style.display='none'">`;
   } else {
     modalDiagram.innerHTML = '';
   }
