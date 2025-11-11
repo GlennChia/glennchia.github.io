@@ -295,12 +295,21 @@ function hideTagTooltip() {
 function showModal(pub) {
   const modal = document.getElementById('publication-modal');
   const modalTitle = document.getElementById('modal-title');
+  const modalTags = document.getElementById('modal-tags');
   const modalDate = document.getElementById('modal-date');
   const modalDiagram = document.getElementById('modal-diagram');
   const modalDescription = document.getElementById('modal-description');
   const modalLinks = document.getElementById('modal-links');
 
   modalTitle.innerHTML = pub.title;
+  
+  // Tags
+  modalTags.innerHTML = `
+    <span class="tag company-tag">${pub.job}</span>
+    <span class="tag type-tag">${pub.content_type}</span>
+    ${pub.tags.map(tag => `<span class="tag meta-tag">${tag}</span>`).join('')}
+  `;
+  
   modalDate.textContent = new Date(pub.date).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
