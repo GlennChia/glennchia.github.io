@@ -77,7 +77,7 @@ const publications = [
     job: "HashiCorp",
     content_type: "video",
     tags: ["terraform", "module", "lifecycle", "deprecate", "revoke", "explorer", "change request", "notification"],
-    link: "https://www.youtube.com/live/PtUx4jLG954?si=kGJYmDEDQdzkthQI&t=3337",
+    link: "https://www.youtube.com/watch?v=nabr5_oD7eg",
     code_link: "https://github.com/GlennChia/hashitalks-terraform-module-lifecycle/tree/main/bootstrap",
     folder: "terraform",
     popup_folder: "hashicorp-terraform-module-lifecycle",
@@ -171,7 +171,7 @@ function renderPublications(filteredPublications) {
 function renderCardView(filteredPublications, grid) {
   // Reset to grid display for cards
   grid.style.display = 'grid';
-  
+
   grid.innerHTML = filteredPublications.map(pub => `
     <div class="publication-card" data-job="${pub.job}" data-content-type="${pub.content_type}" onclick="showModal(${JSON.stringify(pub).replace(/"/g, '&quot;')})" style="cursor: pointer;">
       <h3 class="card-title">${pub.title}</h3>
@@ -195,21 +195,21 @@ function renderCardView(filteredPublications, grid) {
 }
 
 function renderTableView(filteredPublications, grid) {
-  const getNonDomainTags = (tags) => tags.filter(tag => 
-    !['terraform', 'vault', 'kubernetes', 'network', 'policy', 'module'].some(domain => 
+  const getNonDomainTags = (tags) => tags.filter(tag =>
+    !['terraform', 'vault', 'kubernetes', 'network', 'policy', 'module'].some(domain =>
       tag.toLowerCase().includes(domain.toLowerCase())
     )
   );
 
-  const getDomainTags = (tags) => tags.filter(tag => 
-    ['terraform', 'vault', 'kubernetes', 'network', 'policy', 'module'].some(domain => 
+  const getDomainTags = (tags) => tags.filter(tag =>
+    ['terraform', 'vault', 'kubernetes', 'network', 'policy', 'module'].some(domain =>
       tag.toLowerCase().includes(domain.toLowerCase())
     )
   );
 
   // Override grid display for table
   grid.style.display = 'block';
-  
+
   grid.innerHTML = `
     <table class="publications-table">
       <thead>
@@ -250,7 +250,7 @@ function handleTagOverflow(tagsContainer) {
   const allTags = JSON.parse(tagsContainer.dataset.allTags);
   const metaTags = tagsContainer.querySelectorAll('.meta-tag');
   const existingOverflow = tagsContainer.querySelector('.tag-overflow');
-  
+
   if (existingOverflow) existingOverflow.remove();
 
   // Reset all meta tags to visible first
@@ -278,7 +278,7 @@ function handleTagOverflow(tagsContainer) {
 
     let visibleMetaTags = 0;
     let metaWidth = fixedWidth;
-    
+
     for (let i = 0; i < metaTags.length; i++) {
       const tagWidth = metaTags[i].offsetWidth + 6;
       // Reserve space for +N indicator (approximately 30px)
@@ -290,7 +290,7 @@ function handleTagOverflow(tagsContainer) {
     // Hide overflow tags and show + indicator
     if (visibleMetaTags < metaTags.length) {
       const hiddenTags = allTags.slice(visibleMetaTags);
-      
+
       for (let i = visibleMetaTags; i < metaTags.length; i++) {
         metaTags[i].style.display = 'none';
       }
@@ -300,7 +300,7 @@ function handleTagOverflow(tagsContainer) {
       overflowSpan.textContent = `+${hiddenTags.length}`;
       overflowSpan.onmouseover = (e) => showTagTooltip(e, hiddenTags);
       overflowSpan.onmouseout = hideTagTooltip;
-      
+
       // Add click handler for mobile
       overflowSpan.onclick = (e) => {
         e.stopPropagation();
@@ -310,7 +310,7 @@ function handleTagOverflow(tagsContainer) {
           showModal(pubData);
         }
       };
-      
+
       tagsContainer.appendChild(overflowSpan);
     }
   }
@@ -367,14 +367,14 @@ function showModal(pub) {
   const modalLinks = document.getElementById('modal-links');
 
   modalTitle.innerHTML = pub.title;
-  
+
   // Tags
   modalTags.innerHTML = `
     <span class="tag company-tag">${pub.job}</span>
     <span class="tag type-tag">${pub.content_type}</span>
     ${pub.tags.map(tag => `<span class="tag meta-tag">${tag}</span>`).join('')}
   `;
-  
+
   modalDate.textContent = new Date(pub.date).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
