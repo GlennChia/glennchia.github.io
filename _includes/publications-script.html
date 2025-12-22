@@ -15,6 +15,18 @@ const publications = [
     date: "2025-09-15"
   },
   {
+    title: "Terraform agent observability with OpenTelemetry, Prometheus, Grafana, and Jaeger",
+    description: "Demo with provided Terraform code and screenshots for Terraform agent observability with OTel, Prometheus metrics, Grafana dashboards, and Jaeger traces",
+    detailed_description: "HCP Terraform Agents are self-hosted execution environments for managing resources in private networks, but without proper observability, platform teams face challenges with capacity planning, troubleshooting performance issues, and optimizing resource utilization. Implementing observability using OpenTelemetry, Prometheus, Grafana, and Jaeger provides comprehensive visibility through two complementary approaches: metrics offer aggregate performance patterns showing CPU/memory usage, job duration, and resource utilization across agent pools, while traces provide detailed operation-level analysis of individual Terraform runs, revealing exactly which tasks consume the most time during plan and apply operations.<br><br>The observability architecture consists of Terraform Agents emitting telemetry data to an OpenTelemetry collector, which processes and exports metrics to Prometheus for time-series storage and traces to Jaeger for distributed tracing analysis, with Grafana visualizing the metrics through pre-configured dashboards. This separation allows agents to remain vendor-agnostic while integrating with various observability platforms. The metrics inform capacity planning decisions by showing when agent pools need scaling up or down, while traces enable precise troubleshooting by identifying specific bottlenecks like slow provider downloads, configuration setup delays, or state file uploads.<br><br>To experience this observability solution firsthand, the accompanying GitHub repository provides complete sample code with Docker Compose configurations that deploy the full observability stack alongside a Terraform agent, Terraform configurations to create test workspaces that generate real telemetry data, and include a pre-configured Grafana dashboard showing job performance, resource utilization, runtime metrics, and per-agent details, allowing you to observe how metrics and traces work together to provide actionable insights for operating Terraform agents confidently at scale.",
+    job: "HashiCorp",
+    content_type: "blog",
+    tags: ["terraform", "agent", "observability", "otel", "prometheus", "grafana", "jaeger"],
+    link: "https://medium.com/hashicorp-engineering/hcp-terraform-agent-observability-with-opentelemetry-prometheus-grafana-and-jaeger-2de6eca1b319",
+    code_link: "https://github.com/GlennChia/terraform-agent-observability",
+    folder: "hashicorp-terraform-agent-observability",
+    date: "2025-12-20"
+  },
+  {
     title: "Cross-region connections from consumers to Vault using AWS PrivateLink",
     description: "Code and screenshots that show how to establish secure cross-region connections to HCP Vault Dedicated using AWS PrivateLink",
     detailed_description: "AWS PrivateLink provides a secure way to access services privately without exposing traffic to the public internet. HCP Vault now supports AWS PrivateLink connectivity, allowing consumers to securely connect to Vault clusters in different AWS regions while keeping all traffic within the AWS network backbone. This feature requires a HCP Vault Dedicated Essentials or Standard tier cluster.<br><br>In this post, we'll explore how to establish cross-region connections to HCP Vault clusters using AWS PrivateLink, verify the deployed resources, and demonstrate basic Vault operations through the secure connection.",
