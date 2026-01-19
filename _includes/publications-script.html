@@ -51,6 +51,18 @@ const publications = [
     date: "2025-10-14"
   },
   {
+    title: "HCP Vault DNS forwarding to on-premises DNS servers in hybrid cloud environments",
+    description: "A guide showing how to configure DNS forwarding for HCP Vault Dedicated to resolve on-premises hostnames and connect to internal resources using dynamic secrets engines.",
+    detailed_description: "Organizations with hybrid cloud environments often need Vault to connect to on-premises resources that are only resolvable through internal DNS infrastructure. HCP Vault Dedicated now supports DNS forwarding, allowing Vault clusters to resolve internal hostnames by forwarding DNS queries to your on-premises DNS servers through secure network connections.<br><br>This post explores how DNS forwarding works with HCP Vault in AWS, walks through the configuration process, and demonstrates a practical example using Vault's database secrets engine to generate dynamic credentials for an on-premises PostgreSQL database. The capability is particularly valuable for secrets engines like database, Kubernetes, and LDAP that need to connect to internal resources.",
+    job: "HashiCorp",
+    content_type: "blog",
+    tags: ["vault", "hcp", "dns", "network"],
+    link: "https://medium.com/hashicorp-engineering/hcp-vault-dns-forwarding-to-on-premises-dns-servers-in-hybrid-cloud-environments-3e65a5eb4da5",
+    code_link: "https://github.com/GlennChia/hcp-vault-aws-dns-forward-on-prem",
+    folder: "hashicorp-vault-dns-forward-on-prem",
+    date: "2026-01-19"
+  },
+  {
     title: "Patterns for connecting Vault to Amazon RDS using Amazon VPC Lattice",
     description: "Architecture diagrams documenting the various ways of using Amazon VPC Lattice to achieve private connectivity from Vault to Amazon RDS without connecting provider VPCs using VPC peering or Transit Gateway",
     detailed_description: "This is part 1 of a three-part series that highlights how Amazon VPC Lattice can help you achieve private connectivity from Vault self-managed (refers to Vault Enterprise or Vault Community Edition) or HCP Vault Dedicated to resources like Amazon RDS without direct connections to the RDS VPC via VPC peering or AWS Transit Gateway.<br><br>Amazon VPC Lattice allows private connectivity only to resources that you specify instead of the entire VPC. VPC Lattice is a fully managed application networking service that helps you simplify network connectivity, security, and monitoring for service-to-service communication needs. It also has broad support for the most common types of services and protocols, such as HTTP and HTTPS, gRPC, TLS, and TCP. In this blog, we will explore various ways we can leverage VPC Lattice features to connect Vault self-managed and HCP Vault Dedicated to RDS while ensuring the VPC hosting RDS, referred to as the Provider VPC, remains isolated from all other VPCs. This means that the provider VPCs will not be connected to other VPCs via VPC peering or Transit Gateway.",
