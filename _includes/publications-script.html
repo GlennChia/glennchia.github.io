@@ -27,6 +27,18 @@ const publications = [
     date: "2025-12-20"
   },
   {
+    title: "Terraform Actions with Ansible Automation Platform and Vault SSH for VM Configuration",
+    description: "Demo with provided Terraform, Ansible, Packer code and screenshots for integrating Terraform actions with Ansible Automation Platform and Vault SSH for automated VM configuration",
+    detailed_description: "The guide walks through:<ol><li>Deploying a HCP Vault cluster and configuring the SSH secrets engine</li><li>Using Packer to build a golden image that trusts Vault's SSH CA</li><li>Configuring Ansible Automation Platform with base resources (projects, inventory, job templates)</li><li>Setting up an HCP Terraform workspace to deploy Terraform configurations containing the VM provisioning and Terraform action</li><li>Using Terraform actions to launch Ansible playbooks for configuration tasks</li></ol>",
+    job: "HashiCorp",
+    content_type: "blog",
+    tags: ["terraform", "action", "ansible automation platform", "job", "vault", "ssh", "packer"],
+    link: "https://medium.com/@glennchia7/terraform-actions-with-ansible-automation-platform-and-vault-ssh-for-vm-configuration-f7514a7c23af",
+    code_link: "https://github.com/GlennChia/terraform-actions-ansible-job-vault-ssh-vm-config",
+    folder: "hashicorp-terraform-actions-ansible-automation-platform-vault-ssh-vm-config",
+    date: "2026-01-24"
+  },
+  {
     title: "Launch jobs on Ansible Automation Platform with Terraform actions",
     description: "Demo with provided Terraform code and screenshots for Terraform actions to launch jobs on Ansible Automation Platform. Demonstrates wait_for_completion permutations in success and failure scenarios.",
     detailed_description: "The new Terraform action for Red Hat Ansible Automation Platform enables teams to trigger Ansible job templates directly from Terraform workflows, unifying Day 0 provisioning and Day 2 configuration in a single operation. The aap_job_launch action (AAP provider v1.4.0+, Terraform 1.14+) lets you automatically invoke job templates after resource creation or updates, all within one terraform apply. It supports synchronous mode to ensure configuration completes before continuing, or async mode for non-blocking workflows. This post demonstrates both synchronous and asynchronous execution modes with real examples, showing how each behaves in the HCP Terraform UI and the monitoring considerations for each approach.",
