@@ -155,6 +155,74 @@ const publications = [
     date: "2025-08-28"
   },
   {
+    title: "Testing Amazon Cognito backed APIs using Amazon CloudWatch Synthetics",
+    description: "Step-by-step guide showing how to use a CloudWatch Synthetics canary to authenticate against Amazon Cognito via client credentials and test a Cognito-protected API Gateway endpoint, with scripts to provision all required AWS resources.",
+    detailed_description: "Customers who develop APIs can control access to them using Amazon Cognito user pools as an authorizer. Testing these APIs should take into account the additional security controls in place to effectively validate that the APIs are working, and Amazon CloudWatch Synthetics enables proactive testing of these APIs.<br><br>This post shows how to test a Cognito-protected API Gateway endpoint using a CloudWatch Synthetics canary configured with the API blueprint. The canary performs the following steps:<br><br><ol><li>Gets the client secret from AWS Secrets Manager using the GetSecretValue API</li><li>Exchanges the client secret for a JWT token by making a POST request to the Amazon Cognito /oauth2/token endpoint</li><li>Uses the JWT token in the Authorization header to make a GET request to the protected API Gateway method</li></ol>",
+    job: "AWS",
+    content_type: "blog",
+    tags: ["amazon-cognito", "amazon-cloudwatch-synthetics", "amazon-api-gateway", "aws-secrets-manager"],
+    link: "https://aws.amazon.com/blogs/mt/testing-amazon-cognito-backed-apis-using-amazon-cloudwatch-synthetics/",
+    folder: "aws-test-cognito-backed-apis-cloudwatch-synthetics",
+    date: "2024-06-18"
+  },
+  {
+    title: "Streamline and automate compliance monitoring and reporting with AWS Backup Audit Manager",
+    description: "Step-by-step guide with CloudFormation templates showing how to deploy AWS Backup Audit Manager at scale across an AWS Organization and visualize compliance findings in Amazon QuickSight dashboards.",
+    detailed_description: "Organizations meet business and regulatory requirements by having visibility and control over backup environments. Without a centralized, automated solution to oversee backup policies, organizations risk exposing sensitive data, facing compliance violations, and losing critical information in the event of a disaster or ransomware attack.<br><br>This post shows how to solve these issues with one-click automation using AWS CloudFormation. You will learn how to deploy AWS Backup Audit Manager across the member accounts in your organization, and how to summarize AWS Backup Audit Manager findings in Amazon QuickSight dashboards. An additional output from this post is organization-wide compliance reports that can help you demonstrate compliance with regulatory requirements.<br><br>The solution covers three components:<br><br><ol><li>Deploying AWS Backup Audit Manager Frameworks to single or multiple accounts using CloudFormation Stacks or StackSets</li><li>Deploying cross-account, cross-Region compliance reports to a delegated administrator account, with Athena tables for querying report data</li><li>Deploying QuickSight dashboards to transform compliance reports into actionable monitoring visualizations</li></ol>",
+    job: "AWS",
+    content_type: "blog",
+    tags: ["aws-backup", "amazon-athena", "amazon-quicksight", "compliance"],
+    link: "https://aws.amazon.com/blogs/storage/streamline-and-automate-compliance-monitoring-and-reporting-with-aws-backup-audit-manager/",
+    folder: "aws-backup-audit-manager-compliance-monitoring-reporting",
+    date: "2024-06-10"
+  },
+  {
+    title: "Adding approval notifications to EC2 Image Builder before sharing AMIs",
+    description: "Step-by-step guide with CloudFormation template and companion GitHub repo showing how to add a manual AMI approval step using SNS, Lambda, and SSM Automation before sharing golden AMIs to other AWS accounts.",
+    detailed_description: "You may be required to manually validate the Amazon Machine Image (AMI) built from an Amazon EC2 Image Builder pipeline before sharing this AMI to other AWS accounts or to an AWS organization. Currently, Image Builder provides an end-to-end pipeline that automatically shares AMIs after they've been built.<br><br>This post walks through the steps to enable approval notifications before AMIs are shared with other AWS accounts. A manual approval step reduces the potential for sharing an incorrectly configured AMI with other teams which can lead to downstream issues. This solution sends an email with a link to approve or reject the AMI. Upon approving the AMI, the solution automatically shares it with the specified AWS accounts.<br><br>The solution flow is:<br><br><ol><li>An Image Builder Pipeline builds a Golden AMI and publishes data to an SNS Topic</li><li>A Lambda function subscribes to the topic, formats the data, and starts an SSM Automation with the AMI Name and ID</li><li>The SSM Automation sends an approval email to the approver with a URL to approve or reject</li><li>The approver assumes the designated IAM Role and clicks the approval link in the SSM console</li><li>Upon approval, a Lambda function shares the AMI to the target account and sends a notification email to recipients</li></ol>",
+    job: "AWS",
+    content_type: "blog",
+    tags: ["ec2-image-builder", "amazon-sns", "aws-lambda", "aws-ssm", "ami"],
+    link: "https://aws.amazon.com/blogs/compute/adding-approval-notifications-to-ec2-image-builder-before-sharing-amis-2/",
+    code_link: "https://github.com/GlennChia/ec2-image-builder-send-approval-notifications-before-sharing-ami",
+    folder: "aws-ec2-image-builder-approval-ami-sharing",
+    date: "2022-10-14"
+  },
+  {
+    title: "Collect custom metrics with Amazon CloudWatch strategic tagging",
+    description: "Step-by-step guide with a deployable CloudFormation template showing how to use EC2 tags and SSM State Manager to automatically install and configure CloudWatch agents for collecting custom per-application metrics.",
+    detailed_description: "If you deploy multiple applications to your AWS account, your organization is likely interested in collecting metrics based on the varied purposes of those applications. Manually configuring and collecting custom metrics can add to administrative workloads, especially if you plan to add more applications over time.<br><br>This post explains how to use a CloudWatch agent to automate the collection of custom metrics for EC2 instances using a tagging strategy combined with AWS Systems Manager State Manager. After configuration, new EC2 instances tagged appropriately automatically have the correct CloudWatch agent configuration applied, and metrics are sent to CloudWatch.<br><br>The workflow is:<br><br><ol><li>Store CloudWatch agent JSON configurations in AWS Systems Manager Parameter Store</li><li>Create a command document to install and configure CloudWatch agents using the stored configurations</li><li>Create SSM State Manager associations that detect EC2 instances launched with specific application tags</li><li>Launch EC2 instances with the appropriate tags and verify they are automatically associated</li><li>Confirm that custom metrics (e.g. disk_used_percent, mem_used_percent) appear in CloudWatch under custom namespaces</li></ol>",
+    job: "AWS",
+    content_type: "blog",
+    tags: ["amazon-cloudwatch", "amazon-ec2", "aws-ssm", "tagging"],
+    link: "https://aws.amazon.com/blogs/infrastructure-and-automation/collect-custom-metrics-with-amazon-cloudwatch-strategic-tagging/",
+    folder: "aws-custom-cloudwatch-agent-using-tags-ssm-state-manager",
+    date: "2022-04-11"
+  },
+  {
+    title: "How to auto add new cross-account Amazon EC2 instances in a central Amazon CloudWatch dashboard",
+    description: "Step-by-step guide showing how to use CloudWatch SEARCH expressions to automatically include metrics from newly launched cross-account EC2 instances in a central monitoring account dashboard.",
+    detailed_description: "Managing various metrics of Amazon EC2 instances in multiple accounts can be challenging, especially if new instances are launched regularly. Amazon CloudWatch has a cross-account dashboard functionality that provides cross-account visibility to various metrics without having to log in and out of different accounts.<br><br>This post walks through the steps for automatically adding specific metrics of newly launched EC2 instances from cross-accounts to a central CloudWatch dashboard widget in the monitoring account. This method uses search expressions, which are a type of math expression that you can add to CloudWatch graphs. Search expressions let you create dynamic graphs that automatically add appropriate metrics to their display, even if those metrics don't exist when you first create the graph.<br><br>The high-level steps are:<br><br><ol><li>Enable cross-account CloudWatch metrics sharing in the cross-account</li><li>Enable viewing in the monitoring account</li><li>Create a custom dashboard in the monitoring account</li><li>Create a dashboard widget using a SEARCH expression that dynamically tracks cross-account EC2 CPU utilization</li><li>Launch a new EC2 instance in the cross-account and verify it automatically appears in the dashboard</li></ol>",
+    job: "AWS",
+    content_type: "blog",
+    tags: ["amazon-cloudwatch", "amazon-ec2", "cross-account", "dashboard"],
+    link: "https://aws.amazon.com/blogs/mt/how-to-auto-add-new-cross-account-amazon-ec2-instances-in-a-central-amazon-cloudwatch-dashboard/",
+    folder: "aws-cloudwatch-dashboard-auto-add-ec2",
+    date: "2022-06-30"
+  },
+  {
+    title: "Keep your AWS resources when you rename an AWS CloudFormation stack",
+    description: "Step-by-step guide with CloudFormation templates showing how to retain resources when renaming a stack using DeletionPolicy: Retain and resource import.",
+    detailed_description: "Have you ever faced security issues in your organization that required you to change the name of your AWS CloudFormation stack? The only way to change the stack name is to delete the original stack and recreate a new one with the updated name — but by default, deleting a stack also deletes its resources.<br><br>This post describes how to change the name of a CloudFormation stack without deleting the resources it manages. Using a simple VPC as an example, you add a Retain attribute to the resource's deletion policy so that the resource isn't lost when the stack is deleted. After deleting the stack and verifying the resource was retained, you launch another CloudFormation stack with a different name and import the resource.<br><br>The overall process is:<br><br><ol><li>Launch a CloudFormation stack that deploys a single VPC</li><li>Add a Retain attribute to the deletion policy of the VPC</li><li>Delete the stack and verify that the VPC resource is retained</li><li>Create a new stack and import the retained resource under a new stack name</li><li>Remove the Retain attribute to revert to the original template</li></ol>",
+    job: "AWS",
+    content_type: "blog",
+    tags: ["aws-cloudformation"],
+    link: "https://aws.amazon.com/blogs/infrastructure-and-automation/keep-your-aws-resources-when-you-rename-an-aws-cloudformation-stack/",
+    code_link: "https://github.com/aws-quickstart/quickstart-examples/tree/main/blog-assets/change-cfn-stack-name",
+    folder: "aws-cloudformation-rename-stack",
+    date: "2022-07-19"
+  },
+  {
     title: "AWS and AWSCC Terraform providers: Better together",
     description: "Sample code, step by step guide showing how to use both providers together and how to migrate from one provider to the other with import and removed blocks",
     detailed_description: "Terraform has two AWS providers: AWS and AWSCC, one handwritten, the other automatically generated. This post covers the reasoning behind these approaches, how each provider interacts with AWS APIs, how they complement rather than compete with each other, and how to migrate resources from one provider to the other, without recreating them.",
