@@ -7,9 +7,9 @@ title: About
   <div class="profile-content">
     <h1>Glenn Chia</h1>
 
-    <p>I'm currently a Solutions Architect Specialist at HashiCorp where I focus on the infrastructure lifecycle management (ILM) portfolio. I work closely with enterprise customers to define strategies for operating infrastructure as code at scale. As part of ILM, I work on product integrations across the networking, security, Kubernetes, and artificial intelligence domains.</p>
-
-    <p>Prior to HashiCorp, I worked at AWS in Professional Services, where I helped customers implement generative AI applications, enterprise backup architectures, data lakes, and cloud landing zones. I've also had stints in GovTech, Microsoft, and IBM in cloud architecture and software engineering roles.</p>
+    <p>I'm currently a Senior Advanced Delivery Architect at Wiz where I focus on leading strategic post-sales engagements that unblock complex technical challenges and accelerate platform adoption. I specialize in architecting customized Outpost deployment models, such as bring your own network (BYON) Outpost and Outpost Lite, to ensure customers securely connect their cloud environments while meeting strict compliance requirements. Beyond outposts, I serve as a Subject Matter Expert for Kubernetes Security Posture Management (KSPM) and enterprise-wide sensor rollouts, onboarding k8s clusters at scale across connectors, admission controllers, and sensors for cloud and on-premises environments. I'm also building AI security demos showcasing how Wiz secures AI infrastructure across Amazon Bedrock AgentCore, Microsoft Foundry, Gemini Enterprise Agent Platform.</p>
+    
+    <p>Prior to Wiz, I was a Senior Solutions Architect Specialist at HashiCorp where I focused on the infrastructure lifecycle management (ILM) portfolio. I worked closely with enterprise customers to define strategies for operating infrastructure as code at scale. As part of ILM, I work on product integrations across the networking, security, Kubernetes, and artificial intelligence domains. I also spent a considerable time at AWS, as a Professional Services Cloud Architect where I helped customers implement generative AI applications, enterprise backup architectures, data lakes, and cloud landing zones. I've also had stints in GovTech, Microsoft, and IBM in cloud architecture and software engineering roles.</p>
 
     <div class="social-links">
       <a href="https://www.linkedin.com/in/glenn-chia-291344142" target="_blank" class="social-link">
